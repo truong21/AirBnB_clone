@@ -4,7 +4,7 @@ from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
-    isClass = {'BaseClass'}
+    isClass = 'BaseClass'
 
     def do_quit(self, args):
         'exit the program'
@@ -20,11 +20,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         'creates a new instance of BaseModel, saves it to json, &prints the id'
-        if (isClass):
-            instance = BaseModel()
-            print(self.id)
-        else:
-            print ('** class dosent exist**')
+        instance = BaseModel()
+        print(BaseModel.id)
 
     def do_show(self, args):
         ' prints str representation of an instance based on the class name and id'
