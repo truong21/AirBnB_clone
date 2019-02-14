@@ -7,10 +7,18 @@ from datetime import datetime
 import uuid
 
 class BaseModel():
-    def __init__(self):
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = self.created_at
+    '''
+    BaseModel class that defines all common attributes/methods for other classes
+    '''
+    def __init__(self, *args, **kwargs):
+        if not (kwargs):
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
+        else:
+            self.__dict__ = kwargs
+            self.created_at = datetime.strptime(self.created_at, "%Y-%m-%dT%H:%M:%S.%f")
+            self.updated_at = datetime.strptime(self.updated_at,"%Y-%m-%dT%H:%M:%S.%f")
 
 
     def __str__(self):
