@@ -17,7 +17,7 @@ class BaseModel():
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
-            #models.storage.new(self)
+            models.storage.new(self)
         else:
             self.__dict__ = kwargs
             self.created_at = datetime.strptime(self.created_at, 
@@ -33,7 +33,7 @@ class BaseModel():
     def save(self):
         '''updates updated_at with current datetime'''
         self.updated_at = datetime.now()
-        #models.storage.save()
+        models.storage.save()
 
     def to_dict(self):
         '''returns dict containing all key values of __dict__'''
