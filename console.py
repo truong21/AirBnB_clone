@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 import cmd
 from models.base_model import BaseModel
-
+from models.engine.file_storage import FileStorage
+from models import storage
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
-    isClass = ["BaseModel"]
+    isClass = ["BaseModel", "User", "City", "Amenity", "Review", "State","Place"]
 
     def do_quit(self, args):
         'exit the program'
@@ -30,19 +31,21 @@ class HBNBCommand(cmd.Cmd):
             instance.save()
             print(instance.id)
 
-    def do_show(self, args):
+    def do_show(self, line):
         ' prints str representation of an instance based on the class name and id'
-        intake = args.split()
-        if len(args) == 0:
+        intake = line.split()
+        print (intake)
+        if len(intake) == 0:
             print('** class name missing **')
-        elif args not in self.isClass:
+        elif intake not in self.isClass:
             print('** class doesn\'t exist **')
-        elif len(args) < 2:
+        elif len(intake) < 2:
             print('** instance id missing **')
-        
-                show_me = storage.all()
-                print(show_me[key])
-
+            return
+        key = str(intake[0]) + '.' + str(intake[1])
+        showme = storage.all()
+        print(showme[key])
+         
     def do_destroy(self, args):
         'deletes an instance based on the class name and id'
 
