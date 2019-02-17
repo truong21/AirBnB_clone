@@ -10,6 +10,8 @@ from models.city import City
 from models.state import State
 from models.place import Place
 from models.review import Review
+
+
 class FileStorage():
     '''
     serializes instances to a JSON file and deserializes JSON file to instances
@@ -32,6 +34,7 @@ class FileStorage():
         sets in __objects the obj key
         '''
         self.__objects["{}.{}".format(obj.__class__.__name__, obj.id)] = obj
+    
     def save(self):
         '''
         serializes __objects to JSON file path
@@ -46,6 +49,7 @@ class FileStorage():
         '''
         desearializes the JSON file to __objects
         '''
+        new_dict = {}
         try:
             with open(self.__file_path, mode='r') as r_file:
                 new_dict = json.load(r_file)
