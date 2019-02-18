@@ -29,12 +29,12 @@ class FileStorage():
         '''
         return (self.__objects)
 
-    def new(self,obj):
+    def new(self, obj):
         '''
         sets in __objects the obj key
         '''
         self.__objects["{}.{}".format(obj.__class__.__name__, obj.id)] = obj
-    
+
     def save(self):
         '''
         serializes __objects to JSON file path
@@ -42,8 +42,8 @@ class FileStorage():
         cereal = {}
         for key, value in self.__objects.items():
             cereal[key] = value.to_dict()
-            with open(self.__file_path, mode='w') as c_file:    
-                json.dump(cereal, c_file)
+        with open(self.__file_path, mode='w') as c_file:
+            json.dump(cereal, c_file)
 
     def reload(self):
         '''
