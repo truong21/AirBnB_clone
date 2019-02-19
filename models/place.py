@@ -4,6 +4,7 @@ class that inherits from basemodel
 '''
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     '''
     city_id: string - empty string: it will be the City.id
@@ -16,7 +17,8 @@ class Place(BaseModel):
     price_by_night: integer - 0
     latitude: float - 0.0
     longitude: float - 0.0
-    amenity_ids: list of string - empty list: it will be the list of Amenity.id later
+    amenity_ids: list of string - empty list: it will be the list\
+    of Amenity.id later
     '''
     city_id = ""
     user_id = ""

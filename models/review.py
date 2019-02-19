@@ -4,6 +4,7 @@ class that inherits from basemodel
 '''
 from models.base_model import BaseModel
 
+
 class Review(BaseModel):
     '''
     place_id: string - empty string: it will be the Place.id

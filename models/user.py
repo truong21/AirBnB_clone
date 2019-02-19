@@ -4,6 +4,7 @@ user class that inherits from basemodel
 '''
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     '''
     email: string - empty string
@@ -14,4 +15,4 @@ class User(BaseModel):
     email = ""
     password = ""
     first_name = ""
-    last_name = ""      
+    last_name = ""
