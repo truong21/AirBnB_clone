@@ -75,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             showme = storage.all()
-            key = str(intake[0]) + '.' + str(intake[1])
+            key = str(argv[0]) + '.' + str(argv[1])
             if key in showme:
                 del showme[key]
                 storage.save()
@@ -87,9 +87,11 @@ class HBNBCommand(cmd.Cmd):
             on the class name
         """
         showme = storage.all()
+        objs_list = []
         if not args:
             for key, obj in showme.items():
-                print(obj)
+                objs_list.append(str(obj))
+            print(objs_list)
         else:
             argv = args.split()
             if argv[0] not in self.isClass:
@@ -98,7 +100,8 @@ class HBNBCommand(cmd.Cmd):
                 for key, obj in showme.items():
                     instance = obj.to_dict()
                     if instance['__class__'] == argv[0]:
-                        print(obj)
+                        objs_list.append(str(showme[key]))
+                print(objs_list)
 
     def do_update(self, args):
         """ updates instance based on the class name and id by adding or
@@ -117,9 +120,9 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
         else:
             showme = storage.all()
-            key = str(intake[0]) + '.' + str(intake[1])
+            key = str(argv[0]) + '.' + str(argv[1])
             if key in showme:
-                setattr(store[key], argv[2], argv[3])
+                setattr(showme[key], argv[2], argv[3])
                 storage.save()
             else:
                 print("** no instance found **")
