@@ -1,8 +1,15 @@
 #!/usr/bin/python3
 import cmd
+import json
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models import storage
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -41,7 +48,6 @@ class HBNBCommand(cmd.Cmd):
         name and id
         """
         intake = line.split()
-        print(intake)
         if len(intake) == 0:
             print('** class name missing **')
         elif intake[0] not in self.isClass:
@@ -57,13 +63,67 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
          
     def do_destroy(self, args):
-        'deletes an instance based on the class name and id'
+        """ deletes an instance based on the class name and id,
+            but saves the changes in JSON file
+        """
+        argv = args.split()
+        if len(argv) == 0:
+            print('** class name missing **')
+        elif argv[0] not in self.isClass:
+            print("** class doesn't exist **")
+        elif len(argv) < 2:
+            print("** instance id missing **")
+        else:
+            showme = storage.all()
+            key = str(intake[0]) + '.' + str(intake[1])
+            if key in showme:
+                del showme[key]
+                storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, args):
-        'prints all str representation of all instances based or not on the class name'
+        """"prints all str representation of all instances based or not
+            on the class name
+        """
+        showme = storage.all()
+        if not args:
+            for key, obj in showme.items():
+                print(obj)
+        else:
+            argv = args.split()
+            if argv[0] not in self.isClass:
+                print("** class doesn't exist **")
+            else:
+                for key, obj in showme.items():
+                    instance = obj.to_dict()
+                    if instance['__class__'] == argv[0]:
+                        print(obj)
 
     def do_update(self, args):
-        'updates instance based on the class name and id by adding or updating attribute'
+        """ updates instance based on the class name and id by adding or
+            updating attribute
+        """
+        argv = args.split()
+        if len(argv) == 0:
+            print("** class name missing **")
+        elif argv[0] not in self.isClass:
+            print("** class doesn't exist **")
+        elif len(argv) == 1:
+            print("** instance id missing **")
+        elif len(argv) == 2:
+            print("** attribute name missing **")
+        elif len(argv) == 3:
+            print("** value missing **")
+        else:
+            showme = storage.all()
+            key = str(intake[0]) + '.' + str(intake[1])
+            if key in showme:
+                setattr(store[key], argv[2], argv[3])
+                storage.save()
+            else:
+                print("** no instance found **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
