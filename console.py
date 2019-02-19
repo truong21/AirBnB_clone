@@ -44,14 +44,14 @@ class HBNBCommand(cmd.Cmd):
         print(intake)
         if len(intake) == 0:
             print('** class name missing **')
-        elif intake not in self.isClass:
+        elif intake[0] not in self.isClass:
             print("** class doesn't exist **")
         elif len(intake) < 2:
             print("** instance id missing **")
         else:
             showme = storage.all()
             key = str(intake[0]) + '.' + str(intake[1])
-            if key in objects:
+            if key in showme:
                 print(showme[key])
             else:
                 print("** no instance found **")
