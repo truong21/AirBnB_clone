@@ -3,6 +3,8 @@
 """
 from models.base_model import BaseModel
 import unittest
+import json
+import os
 
 
 class TestBaseModel(unittest.TestCase):
@@ -14,7 +16,11 @@ class TestBaseModel(unittest.TestCase):
 
     def tearDown(self):
         """ tear down """
-        pass
+        try:
+            del file.json
+        except:
+            pass
+    
     def test_doc(self):
         """testing docstrings"""
         self.assertIsNotNone(BaseModel.__doc__)
