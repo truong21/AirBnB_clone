@@ -2,9 +2,12 @@
 '''
 BaseModel class that will be used by all instances
 '''
+
+
 import models
 from datetime import datetime
 import uuid
+import json
 
 
 class BaseModel():
