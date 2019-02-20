@@ -20,7 +20,7 @@ class TestBaseModel(unittest.TestCase):
             os.remove("file.json")
         except:
             pass
-    
+
     def test_doc(self):
         """testing docstrings exists """
         self.assertTrue(len(BaseModel.__doc__) > 1)
@@ -48,7 +48,7 @@ class TestBaseModel(unittest.TestCase):
         """ test for attributes of BaseModel """
         my_model = BaseModel()
         self.assertTrue(isinstance(my_model, BaseModel))
-        self.assertTrue(hasattr(my_model, "__init__")) 
+        self.assertTrue(hasattr(my_model, "__init__")
         self.assertTrue(hasattr(my_model, "id"))
         self.assertTrue(hasattr(my_model, "created_at"))
         self.assertTrue(hasattr(my_model, "updated_at"))
