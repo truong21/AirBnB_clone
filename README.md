@@ -65,7 +65,6 @@ update | `update [class_name] [object_id] [update_key] [update_value]`| Updates 
 show | `show [class_name] [object_id]` | Displays all attributes of class_name.object_id
 all | `all [class_name]`, `all` | Displays every instance of class_name, if used without option displays every instance saved to the file
 destroy | `destroy [class_name] [object_id]` or  | Deletes all attributes of class_name.object_id
-count | `count [class_name]`| Counts all the instances with class name specified
 
 
 ### Files
