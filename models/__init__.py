@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+Create a Filestorage instance storage
+"""
+
 
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
