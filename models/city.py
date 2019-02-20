@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 '''
-inherits from basemodel class
+City Class inherits from basemodel class
 '''
+
+
 from models.base_model import BaseModel
 
 
