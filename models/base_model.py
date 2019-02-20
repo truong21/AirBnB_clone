@@ -11,10 +11,10 @@ import json
 
 
 class BaseModel():
-    '''
+    """
     BaseModel class that defines all common attributes/methods
     for other classes
-    '''
+    """
     def __init__(self, *args, **kwargs):
         """ initialization of an BaseModel instance with attributes """
         if not (kwargs):
@@ -35,12 +35,12 @@ class BaseModel():
                                       self.id, self.__dict__))
 
     def save(self):
-        '''updates updated_at with current datetime'''
+        """updates updated_at with current datetime"""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        '''returns dict containing all key values of __dict__'''
+        """returns dict containing all key values of __dict__"""
         instance = self.__dict__.copy()
         instance['__class__'] = self.__class__.__name__
         instance['created_at'] = self.created_at.isoformat()
