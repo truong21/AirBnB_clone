@@ -23,11 +23,11 @@ class BaseModel():
             self.updated_at = self.created_at
             models.storage.new(self)
         else:
-            self.__dict__ = kwargs
-            self.created_at = datetime.strptime(self.created_at,
-                                                "%Y-%m-%dT%H:%M:%S.%f")
-            self.updated_at = datetime.strptime(self.updated_at,
-                                                "%Y-%m-%dT%H:%M:%S.%f")
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                if key != "__class__":
+                    setattr(self, key, value)
 
     def __str__(self):
         """ returns a str representation of a object """
