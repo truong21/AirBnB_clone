@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-"""unit test for BaseModel class
+"""unit test for FileStorage class
 """
+
+import models
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.user import User
@@ -21,7 +23,7 @@ class TestFileStorage(unittest.TestCase):
         pass
 
     def tearDown(self):
-        """ tear down """
+        """ remove JSON after test run """
         try:
             os.remove("file.json")
         except:
@@ -29,49 +31,52 @@ class TestFileStorage(unittest.TestCase):
 
     def test_doc(self):
         """testing docstrings"""
-        self.assertIsNotNone(FileStorage.__doc__)
-        self.assertIsNotNone(FileStorage.all.__doc__)
-        self.assertIsNotNone(FileStorage.save.__doc__)
-        self.assertIsNotNone(FileStorage.new.__doc__)
-        self.assertIsNotNone(FileStorage.reload.__doc__)    
+        self.assertTrue(len(FileStorage.__doc__) > 1)
+        self.assertTrue(len(FileStorage.all.__doc__) > 1)
+        self.assertTrue(len(FileStorage.new.__doc__) > 1)
+        self.assertTrue(len(FileStorage.save.__doc__) > 1)
+        self.assertTrue(len(FileStorage.reload.__doc__) > 1)
 
     def test_all(self):
         """ test method all """
-        my_model = FileStorage()
-        my_model_dict = my_model.all()
-        self.assertIsNotNone(my_model_dict)
-        self.assertIs(my_model_dict, my_model._FileStorage__objects)
-        self.assertEqual(type(my_model_dict), dict)
+        store = FileStorage()
+        store_dict = store.all()
+        self.assertIsNotNone(store_dict)
+        self.assertIs(store_dict, store._FileStorage__objects)
+        self.assertEqual(type(store_dict), dict)
 
     def test_new(self):
         """ test method new """
-        my_model = FileStorage()
-        my_model_dict = my_model.all()
+        store = FileStorage()
+        store_dict = store.all()
         gary = User()
         gary.id = 123
         gary.name = "Link"
-        my_model.new(gary)
+        store.new(gary)
         key = "{}.{}".format(gary.__class__.__name__, gary.id)
-        self.assertIsNotNone(my_model_dict[key])
+        self.assertIsNotNone(store_dict[key])
 
 
     def test_save(self):
         """ test if file.json is saved or created"""
-        my_model = FileStorage()
-        my_model.name = "Gary"
-        my_model.my_number = 89
-        my_model.save()
-        self.assertTrue(os.path.isfile('file.json'))
+        store = FileStorage()
+        self.assertIsInstance(store, FileStorage)
+        b1 = BaseModel()
+        store.new(b1)
+        store.name = "Gary"
+        store.my_number = 89
+        store.save()
+        self.assertTrue(os.path.exists('file.json'))
 
     def test_reload(self):
         """ test method reload """
-        my_model = FileStorage()
+        store = FileStorage()
         with open("file.json", "w") as f:
             f.write("{}")
         with open("file.json", "r") as r:
             for line in r:
                 self.assertEqual(line, "{}")
-        self.assertIs(my_model.reload(), None)
+        self.assertIs(store.reload(), None)
 
 
 if __name__ == "__main__":
